@@ -22,6 +22,14 @@ func (l ListPriceDao) GetListPrice(c context.Context, product string) (datetable
 	return listPrice, err
 }
 
+func (l ListPriceDao) CreateListPrice(c context.Context, listPrice datetable.ListPriceItem) (bool, error) {
+	result := l.Conn.DB.Create(&listPrice)
+	if result.Error != nil {
+		return false, result.Error
+	}
+	return true, nil
+}
+
 // func (m MemberDao) GetEmailFromMember(c context.Context, email string) (bool, error) {
 // 	var count int64
 // 	err := m.Conn.DB.Model(&datatable.Member{}).Where("email=?", email).Count(&count).Error
